@@ -8,24 +8,23 @@ def pomocycle(phase):
     # Set up the LED grid size
     column = 15
     row = 6
-    
-    # Set multiplier based on phase passed as well as the RGB variables
-    if phase == "regular":
-        multiplier = 134
-        r = 255
-        g = 0
-    elif phase == "small":
-        multiplier = 54
-        r = 255
-        g = 127
-    # Default to rest phase
-    else:
-        multiplier = 27
-        r = 0
-        g = 255
 
     # Start counting down
     while not(picounicorn.is_pressed(picounicorn.BUTTON_B)):
+        # Set multiplier based on phase passed as well as the RGB variables
+        if phase == "regular":
+            multiplier = 134
+            r = 255
+            g = 0
+        elif phase == "small":
+            multiplier = 54
+            r = 255
+            g = 127
+        # Default to rest phase
+        else:
+            multiplier = 27
+            r = 0
+            g = 255
 
         # Illuminate every LED on the board
         for x in range(16):
@@ -46,12 +45,11 @@ def pomocycle(phase):
             row -= 1
         row = 6
         
-        # No more LEDs? Switch from work to rest and vice versa
-        if phase == "regular" or phase=="small":
-            phase = "rest"
-        elif phase == "rest":
+        # No more LEDs? If in rest phase switch to regular, otherwise default to rest
+        if phase == "rest":
             phase = "regular"
-        pass
+        else:
+            phase = "rest"
 
     # Clear the display
     for x in range(16):
